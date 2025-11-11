@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:money_tracker/data/db/money_dao.dart';
 import 'package:money_tracker/data/model/transaction.dart';
+import 'package:money_tracker/data/repository/money_repository.dart';
 
 class InsertPage extends StatefulWidget {
   const InsertPage({super.key});
@@ -25,7 +25,7 @@ class _InsertPageState extends State<InsertPage> {
   final _amountCtr = TextEditingController();
   String _type = 'income';
   DateTime _selectedDate = DateTime.now();
-  final _dao = MoneyDao();
+  final _repo = MoneyRepository();
 
   @override
   void dispose() {
@@ -57,7 +57,7 @@ class _InsertPageState extends State<InsertPage> {
       date: _selectedDate.toIso8601String(),
     );
 
-    await _dao.insertTransaction(tx);
+    await _repo.insertTransaction(tx);
     // return true to caller so it can refresh list if needed
     if (mounted) Navigator.of(context).pop(true);
   }
