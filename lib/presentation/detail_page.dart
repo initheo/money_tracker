@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:money_tracker/data/model/transaction.dart';
 import 'package:money_tracker/data/repository/money_repository.dart';
 import 'package:money_tracker/presentation/home_page.dart';
+import 'package:money_tracker/presentation/update_page.dart';
 
 class DetailPage extends StatelessWidget {
   final Transaction ts;
@@ -53,7 +54,17 @@ class DetailPage extends StatelessWidget {
                 ),
                 SizedBox(
                   width: 190,
-                  child: ElevatedButton(onPressed: () {}, child: Text('Edit')),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => UpdatePage(ts: ts),
+                        ),
+                      );
+                    },
+                    child: Text('Edit'),
+                  ),
                 ),
               ],
             ),
