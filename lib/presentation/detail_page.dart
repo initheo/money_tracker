@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:money_tracker/data/model/transaction.dart';
+import 'package:money_tracker/data/repository/money_repository.dart';
+import 'package:money_tracker/presentation/home_page.dart';
 
 class DetailPage extends StatelessWidget {
   final Transaction ts;
 
-  const DetailPage({super.key, required this.ts});
+  DetailPage({super.key, required this.ts});
+
+  final _repo = MoneyRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +35,19 @@ class DetailPage extends StatelessWidget {
                 SizedBox(
                   width: 200,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      _repo.deleteTransaction(ts.id!);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Berhasil di hapus'),
+                          backgroundColor: Colors.blue,
+                        ),
+                      );
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomePage()),
+                      );
+                    },
                     child: Text('Delete'),
                   ),
                 ),
